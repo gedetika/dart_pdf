@@ -39,7 +39,7 @@ mixin Printing {
   static Future<bool> layoutPdf({
     required LayoutCallback onLayout,
     String name = 'Document',
-    PdfPageFormat format = PdfPageFormat.standard,
+    PdfPageFormat format = PdfPageFormat.a6,
     bool dynamicLayout = true,
   }) {
     return PrintingPlatform.instance.layoutPdf(
@@ -123,7 +123,7 @@ mixin Printing {
     required Printer printer,
     required LayoutCallback onLayout,
     String name = 'Document',
-    PdfPageFormat format = PdfPageFormat.standard,
+    PdfPageFormat format = PdfPageFormat.a6,
     bool dynamicLayout = true,
   }) {
     return PrintingPlatform.instance.layoutPdf(
@@ -157,7 +157,7 @@ mixin Printing {
   static Future<Uint8List> convertHtml({
     required String html,
     String? baseUrl,
-    PdfPageFormat format = PdfPageFormat.standard,
+    PdfPageFormat format = PdfPageFormat.a6,
   }) {
     return PrintingPlatform.instance.convertHtml(
       html,

@@ -197,6 +197,7 @@ public class PrintingJob extends PrintDocumentAdapter {
         if (width > height) {
             attrBuilder.setMediaSize(PrintAttributes.MediaSize.UNKNOWN_LANDSCAPE);
         }
+        attrBuilder.setMediaSize(PrintAttributes.MediaSize.ISO_A6);
         PrintAttributes attrib = attrBuilder.build();
         printJob = printManager.print(name, this, attrib);
     }

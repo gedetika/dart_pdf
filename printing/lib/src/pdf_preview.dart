@@ -129,8 +129,7 @@ class _PdfPreviewState extends State<PdfPreview> {
   Timer? previewUpdate;
 
   static const defaultPageFormats = <String, PdfPageFormat>{
-    'A4': PdfPageFormat.a4,
-    'Letter': PdfPageFormat.letter,
+    'A6': PdfPageFormat.a6,
   };
 
   PdfPageFormat get computedPageFormat => horizontal != null
@@ -223,9 +222,9 @@ class _PdfPreviewState extends State<PdfPreview> {
       final cc = (locale as Locale?)?.countryCode ?? 'US';
 
       if (cc == 'US' || cc == 'CA' || cc == 'MX') {
-        pageFormat = PdfPageFormat.letter;
+        pageFormat = PdfPageFormat.a6;
       } else {
-        pageFormat = PdfPageFormat.a4;
+        pageFormat = PdfPageFormat.a6;
       }
     } else {
       pageFormat = widget.initialPageFormat!;
@@ -397,16 +396,18 @@ class _PdfPreviewState extends State<PdfPreview> {
       );
     }
 
-    if (widget.allowSharing && info.canShare) {
-      actions.add(
-        IconButton(
-          key: shareWidget,
-          icon: const Icon(Icons.share),
-          color: theme.accentIconTheme.color,
-          onPressed: _share,
-        ),
-      );
-    }
+    //share not in use
+    // if (widget.allowSharing && info.canShare) {
+    //   actions.add(
+    //     IconButton(
+    //       key: shareWidget,
+    //       icon: const Icon(Icons.share),
+    //       color: theme.accentIconTheme.color,
+    //       // onPressed: _share,
+    //       onPressed: _share,
+    //     ),
+    //   );
+    // }
 
     if (widget.canChangePageFormat) {
       final _pageFormats = widget.pageFormats ?? defaultPageFormats;
@@ -442,32 +443,33 @@ class _PdfPreviewState extends State<PdfPreview> {
         ),
       );
 
-      if (widget.canChangeOrientation) {
-        horizontal ??= pageFormat.width > pageFormat.height;
-        final color = theme.accentIconTheme.color!;
-        final disabledColor = color.withAlpha(120);
-        actions.add(
-          ToggleButtons(
-            renderBorder: false,
-            borderColor: disabledColor,
-            color: disabledColor,
-            selectedBorderColor: color,
-            selectedColor: color,
-            onPressed: (int index) {
-              setState(() {
-                horizontal = index == 1;
-                _raster();
-              });
-            },
-            isSelected: <bool>[horizontal == false, horizontal == true],
-            children: <Widget>[
-              Transform.rotate(
-                  angle: -pi / 2, child: const Icon(Icons.note_outlined)),
-              const Icon(Icons.note_outlined),
-            ],
-          ),
-        );
-      }
+      //orientation not in use
+      // if (widget.canChangeOrientation) {
+      //   horizontal ??= pageFormat.width > pageFormat.height;
+      //   final color = theme.accentIconTheme.color!;
+      //   final disabledColor = color.withAlpha(120);
+      //   actions.add(
+      //     ToggleButtons(
+      //       renderBorder: false,
+      //       borderColor: disabledColor,
+      //       color: disabledColor,
+      //       selectedBorderColor: color,
+      //       selectedColor: color,
+      //       onPressed: (int index) {
+      //         setState(() {
+      //           horizontal = index == 1;
+      //           _raster();
+      //         });
+      //       },
+      //       isSelected: <bool>[horizontal == false, horizontal == true],
+      //       children: <Widget>[
+      //         Transform.rotate(
+      //             angle: -pi / 2, child: const Icon(Icons.note_outlined)),
+      //         const Icon(Icons.note_outlined),
+      //       ],
+      //     ),
+      //   );
+      // }
     }
 
     if (widget.actions != null) {
@@ -488,26 +490,27 @@ class _PdfPreviewState extends State<PdfPreview> {
       }
     }
 
-    assert(() {
-      if (actions.isNotEmpty) {
-        actions.add(
-          Switch(
-            activeColor: Colors.red,
-            value: pw.Document.debug,
-            onChanged: (bool value) {
-              setState(
-                () {
-                  pw.Document.debug = value;
-                  _raster();
-                },
-              );
-            },
-          ),
-        );
-      }
-
-      return true;
-    }());
+    //not in use debuging pdf margin
+    // assert(() {
+    //   if (actions.isNotEmpty) {
+    //     actions.add(
+    //       Switch(
+    //         activeColor: Colors.red,
+    //         value: pw.Document.debug,
+    //         onChanged: (bool value) {
+    //           setState(
+    //             () {
+    //               pw.Document.debug = value;
+    //               _raster();
+    //             },
+    //           );
+    //         },
+    //       ),
+    //     );
+    //   }
+    //
+    //   return true;
+    // }());
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -560,28 +563,29 @@ class _PdfPreviewState extends State<PdfPreview> {
     }
   }
 
-  Future<void> _share() async {
-    // Calculate the widget center for iPad sharing popup position
-    final referenceBox =
-        // ignore: avoid_as
-        shareWidget.currentContext!.findRenderObject() as RenderBox;
-    final topLeft =
-        referenceBox.localToGlobal(referenceBox.paintBounds.topLeft);
-    final bottomRight =
-        referenceBox.localToGlobal(referenceBox.paintBounds.bottomRight);
-    final bounds = Rect.fromPoints(topLeft, bottomRight);
-
-    final bytes = await widget.build(computedPageFormat);
-    final result = await Printing.sharePdf(
-      bytes: bytes,
-      bounds: bounds,
-      filename: widget.pdfFileName ?? 'document.pdf',
-    );
-
-    if (result && widget.onShared != null) {
-      widget.onShared!(context);
-    }
-  }
+  // not in using share pdf
+  // Future<void> _share() async {
+  //   // Calculate the widget center for iPad sharing popup position
+  //   final referenceBox =
+  //       // ignore: avoid_as
+  //       shareWidget.currentContext!.findRenderObject() as RenderBox;
+  //   final topLeft =
+  //       referenceBox.localToGlobal(referenceBox.paintBounds.topLeft);
+  //   final bottomRight =
+  //       referenceBox.localToGlobal(referenceBox.paintBounds.bottomRight);
+  //   final bounds = Rect.fromPoints(topLeft, bottomRight);
+  //
+  //   final bytes = await widget.build(computedPageFormat);
+  //   final result = await Printing.sharePdf(
+  //     bytes: bytes,
+  //     bounds: bounds,
+  //     filename: widget.pdfFileName ?? 'document.pdf',
+  //   );
+  //
+  //   if (result && widget.onShared != null) {
+  //     widget.onShared!(context);
+  //   }
+  // }
 }
 
 class _PdfPreviewPage extends StatelessWidget {
