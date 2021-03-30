@@ -519,7 +519,7 @@ class _PdfPreviewState extends State<PdfPreview> {
         if (actions.isNotEmpty && widget.useActions)
           Material(
             elevation: 4,
-            color: theme.primaryColor,
+            color: Colors.red,
             child: SizedBox(
               width: double.infinity,
               child: SafeArea(
